@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dojo Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.css">
+  </head>
+  <style media="screen">
+    *{text-align: center;}
+  </style>
+  <body>
+    <div class="wrapper">
+
+      <div class="row">
+        <h1>The Dojo Message Board</h1>
+        <hr>
+      </div>
+
+      <div class="row">
+        <form class="" action="post" method="post">
+          <div class="input-field">
+            <label>Name</label><input type="text" name="name">
+          </div>
+          <div class="input-field">
+            <label>Message</label><input type="text" name="message">
+          </div>
+          <div class="row right">
+            <input type="submit" name="post" value="Post message">
+          </div>
+        </form>
+      </div>
+
+      <% for (var i = 0; i<posts.length; i++) { %>
+        <% var post = posts[i] %>
+        <div class="postbox">
+            <p>Name: <%= post.name %></p>
+            <p>Message: <%= post.message %></p>
+            <div class="comments">
+              <% if (post.comments) { %>
+                <% for (var j = 0; j<post.comments.length; j++) { %>
+                  <div class="commentbox">
+                    <p>Name: <%= post.comments[j].name %></p>
+                    <p>Comment: <%= post.comments[j].comment %></p>
+                  </div>
+                <% } %>
+              <% } %>
+              <div class="row">
+                <form action="comment" method="post">
+                  <input type="hidden" name="id" value="<%= post._id %>">
+                  <div class="input-field">
+                    <label>Name</label><input type="text" name="name">
+                  </div>
+                  <div class="input-field">
+                    <label>Comment</label><input type="text" name="comment">
+                  </div>
+                  <div class="row right">
+                    <input type="submit" name="post" value="Post comment">
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+      <% } %>
+    </div>
+  </body>
+</html>
